@@ -1,0 +1,34 @@
+{
+  "movies": [
+    {
+      "id": 1,
+      "title": "Inception",
+      "poster": "https://www.themoviedb.org/t/p/w1280/ljsZTbVsrQSqZgWeep2B1QiDKuh.jpg",
+      "rating": 8.8
+    },
+    {
+      "id": 2,
+      "title": "Interstellar",
+      "poster": "https://www.themoviedb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+      "rating": 8.6
+    },
+    {
+      "id": 3,
+      "title": "The Dark Knight",
+      "poster": "https://www.themoviedb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      "rating": 9
+    },
+    {
+      "id": "f59f",
+      "title": "RRR",
+      "poster": "https://www.themoviedb.org/t/p/w1280/nEufeZlyAOLqO2brrs0yeF1lgXO.jpg",
+      "rating": 9
+    },
+    {
+      "id": "d58f",
+      "title": "Mufasa",
+      "poster": "https://www.themoviedb.org/t/p/w1280/lurEK87kukWNaHd0zYnsi3yzJrs.jpg",
+      "rating": 8.4
+    }
+  ]
+}
