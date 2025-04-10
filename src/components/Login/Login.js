@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // For API requests
 import "./Login.css";
 
 export default function Login() {
@@ -11,8 +12,8 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem("auth");
-    if (isAuthenticated === "true") {
+    const token = localStorage.getItem("token");
+    if (token) {
       navigate("/movies");
     }
   }, [navigate]);
@@ -20,9 +21,11 @@ export default function Login() {
   return (
     <div className="login-container">
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{ email: "", password: "" }}
         validationSchema={Yup.object({
-          username: Yup.string().required("Username is required"),
+          email: Yup.string()
+            .email("Invalid email")
+            .required("Email is required"),
           password: Yup.string()
             .min(6, "Password too short")
             .required("Password is required"),
@@ -31,17 +34,19 @@ export default function Login() {
           setIsLoading(true);
           setErrorMessage(""); // Clear previous errors
 
-          // Simulating API authentication request
-          setTimeout(() => {
-            if (values.username === "admin" && values.password === "password") {
-              localStorage.setItem("auth", "true");
-              navigate("/movies");
-            } else {
-              setErrorMessage("❌ Invalid username or password.");
-            }
-            setIsLoading(false);
-            setSubmitting(false);
-          }, 1500); // Simulated network delay
+          try {
+            const response = await axios.post(
+              "http://localhost:5000/users/login",
+              values
+            );
+            localStorage.setItem("token", response.data.token);
+            navigate("/movies");
+          } catch (error) {
+            setErrorMessage(error.response?.data?.error || "Login failed");
+          }
+
+          setIsLoading(false);
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
@@ -49,12 +54,12 @@ export default function Login() {
             <h2>🔑 Login</h2>
 
             <Field
-              type="text"
-              name="username"
-              placeholder="👤 Username"
+              type="email"
+              name="email"
+              placeholder="📧 Email"
               className="input-field"
             />
-            <ErrorMessage name="username" component="div" className="error" />
+            <ErrorMessage name="email" component="div" className="error" />
 
             <div className="password-container">
               <Field
@@ -82,6 +87,17 @@ export default function Login() {
             >
               {isLoading ? "🔄 Logging in..." : "🚀 Submit"}
             </button>
+
+            <p className="register-link">
+              Don't have an account?{" "}
+              <button
+                type="button"
+                onClick={() => navigate("/register")}
+                className="register-btn"
+              >
+                Register Here
+              </button>
+            </p>
           </Form>
         )}
       </Formik>

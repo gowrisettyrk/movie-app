@@ -54,8 +54,12 @@ function MovieList() {
         <h2>🎬 Movies Page</h2>
         <button
           onClick={() => {
-            localStorage.removeItem("auth");
-            navigate("/");
+            localStorage.removeItem("auth"); // Remove auth token
+            localStorage.removeItem("token"); // Remove any JWT token if stored
+            navigate("/", { replace: true }); // Redirect to login page
+            setTimeout(() => {
+              window.location.reload(); // Force page refresh after redirect
+            }, 100);
           }}
           className="logout-btn"
         >

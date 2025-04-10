@@ -9,6 +9,8 @@ import AddMovie from "./components/AddMovie/AddMovie";
 import EditMovie from "./components/EditMovie/EditMovie";
 import Login from "./components/Login/Login.js";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
+import Register from "./components/Register/Register";
+import NotFound from "./components/NotFound/NotFound";
 
 import { Container, CssBaseline } from "@mui/material";
 import "./App.css";
@@ -24,9 +26,10 @@ function App() {
           <Route path="/movies" element={<MovieList />} />
           <Route path="/add-movie" element={<AddMovie />} />
           {/* Redirect unknown routes to Login */}
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<NotFound />} />
           <Route path="/edit-movie/:id" element={<EditMovie />} />
           <Route path="/movies/:id" element={<MovieDetails />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Container>
     </Router>
