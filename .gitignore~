@@ -1,0 +1,10 @@
+# Ignore node_modules from both frontend and backend
+movie-frontend/node_modules/
+movie-backend/node_modules/
+
+# Optional: also ignore logs, builds, and environment files
+**/dist/
+**/build/
+**/logs/
+**/.env
+
