@@ -1,0 +1,192 @@
+/* Login Container - Flex Layout */
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Left Side (Login Form) */
+.login-left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); /* Optional: Darken background */
+  color: white;
+  padding: 20px;
+}
+
+/* Right Side (Background Image) */
+.login-right {
+  width: 50%;
+  height: 100%;
+  background-image: url("/src/movie-background.jpg"); /* or public path like /movie-background.jpg */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+/* Logo Animation */
+.login-logo {
+  width: 100px;
+  margin-bottom: 20px;
+  animation: floatLogo 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes floatLogo {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Login Form */
+.login-form {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(255, 0, 255, 0.3);
+  width: 350px;
+  text-align: center;
+  transition: 0.3s;
+  position: relative;
+  z-index: 1;
+  animation: slideIn 0.8s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+/* Input Fields */
+.input-field {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.input-field:focus {
+  border-color: #ff00ff;
+  outline: none;
+  box-shadow: 0 0 12px rgba(255, 105, 180, 0.7);
+  transform: scale(1.03);
+}
+
+/* Password Toggle */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+  padding: 5px;
+}
+
+/* Error Messages */
+.error {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-top: 10px;
+  background: rgba(255, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* Login Button */
+.login-btn {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.login-btn:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  transform: scale(1.05);
+  box-shadow: 4px 4px 12px rgba(0, 0, 255, 0.5);
+}
+
+/* Register Link */
+.register-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.register-btn {
+  background: none;
+  border: none;
+  color: #00bfff;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.register-btn:hover {
+  color: #ff65fc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-left, .login-right {
+    width: 100%;
+    height: auto;
+  }
+
+  .login-logo {
+    width: 80px;
+  }
+
+  .login-form {
+    width: 90%;
+  }
+}
