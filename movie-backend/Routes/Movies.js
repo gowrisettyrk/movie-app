@@ -94,4 +94,56 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// Toggle wishlist status of a movie
+router.patch("/wishlist/:id", async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) return res.status(404).json({ error: "Movie not found" });
+
+    movie.wishlisted = !movie.wishlisted;
+    await movie.save();
+    res.json({ success: true, wishlisted: movie.wishlisted });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// POST /movies/wishlist-tmdb
+router.post("/wishlist-tmdb", async (req, res) => {
+  try {
+    const movieObj = req.body;
+
+    // Check if the movie already exists in DB (by tmdb_id)
+    const existing = await Movie.findOne({ tmdb_id: movieObj.tmdb_id });
+
+    if (existing) {
+      existing.wishlisted = true;
+      await existing.save();
+      return res.json({ success: true, message: "Movie wishlisted", movie: existing });
+    }
+
+    // Create new movie with fallback defaults for required fields
+    const newMovie = new Movie({
+      title: movieObj.title,
+      poster: movieObj.poster,
+      rating: movieObj.rating,
+      summary: movieObj.summary,
+      genre: movieObj.genre || "Unknown",
+      release_date: movieObj.release_date,
+      director: "Unknown",               // <-- default
+      cast: [],                          // <-- default
+      technicians: [],                   // <-- default
+      wishlisted: true,
+      tmdb_id: movieObj.tmdb_id,         // <-- custom field to identify TMDB
+    });
+
+    await newMovie.save();
+    res.status(201).json({ success: true, message: "TMDB movie saved & wishlisted", movie: newMovie });
+  } catch (err) {
+    console.error("TMDB Wishlist Error:", err);
+    res.status(500).json({ success: false, message: "TMDB Wishlist failed", error: err.message });
+  }
+});
+
+
 module.exports = router;
