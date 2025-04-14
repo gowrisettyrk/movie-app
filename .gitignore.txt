@@ -1,0 +1,2 @@
+movie-frontend/node_modules/
+movie-backend/node_modules/
